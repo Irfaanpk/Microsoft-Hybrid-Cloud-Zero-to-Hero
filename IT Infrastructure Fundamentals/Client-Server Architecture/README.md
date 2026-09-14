@@ -1,16 +1,18 @@
-## Client-Server Architecture
+# Client-Server Architecture
 
-Client-server architecture is one of the fundamental concepts of enterprise IT infrastructure. It explains how computers, applications, and services communicate with each other to provide resources and business functionality.
+Client-server architecture is a fundamental concept in enterprise IT infrastructure. It describes how computers, applications, and services communicate over a network to provide and consume resources.
 
-Understanding the client-server model is essential before moving into Windows Server, Active Directory, DNS, DHCP, file services, Microsoft 365, and hybrid cloud environments.
+In a traditional enterprise environment, users typically work from client devices while centralized servers provide services such as authentication, DNS, DHCP, file storage, applications, databases, and web services.
+
+Understanding the client-server model provides the foundation for learning Windows Server, Active Directory, Group Policy, file services, Microsoft 365, hybrid identity, and cloud infrastructure.
 
 ---
 
-## What is Client-Server Architecture?
+## 1. Introduction to Client-Server Architecture
 
-Client-server architecture is a computing model where one system requests a service or resource, while another system provides that service or resource.
+Client-server architecture is a computing model in which a **client requests a service or resource** and a **server provides that service or resource**.
 
-The system requesting the service is called the **client**, and the system providing the service is called the **server**.
+The client and server communicate through a network using defined communication protocols.
 
 ```text
 ┌──────────────┐
@@ -30,7 +32,7 @@ The system requesting the service is called the **client**, and the system provi
 └──────────────┘
 ````
 
-A simple real-world example is opening a website.
+A simple example is accessing a website.
 
 ```text
 User
@@ -50,15 +52,19 @@ Web Browser
 Web Page
 ```
 
-The web browser acts as the **client**, while the web server provides the requested website.
+The web browser acts as the **client**, while the web server provides the requested content.
 
 ---
 
-## 💻 What is a Client?
+## 2. Client
 
-A client is a device or application that requests services or resources from another system.
+A **client** is a device, application, or system that requests services or resources from another system.
 
-### Examples of Client Devices
+A client normally initiates communication with a server.
+
+### 2.1 Client Devices
+
+Common client devices include:
 
 * Desktop computers
 * Laptops
@@ -66,74 +72,50 @@ A client is a device or application that requests services or resources from ano
 * Tablets
 * Thin clients
 * Virtual desktops
+* Workstations
 
-### Examples of Client Applications
-
-* Web browsers
-* Microsoft Outlook
-* Microsoft Teams
-* File Explorer
-* Remote Desktop Client
-* SSH clients
-* Database applications
-* API clients
-
-A client does not always have to be an entire computer.
-
-An application can also act as a client.
-
-For example:
+Example:
 
 ```text
 ┌─────────────────┐
-│   Web Browser   │
-│     Client      │
-└────────┬────────┘
-         │
-         │ HTTPS
-         ↓
-┌─────────────────┐
-│   Web Server    │
-│     Server      │
+│     CLIENT01    │
+│                 │
+│ Windows Client  │
+│                 │
+│ Browser         │
+│ Outlook         │
+│ Teams           │
+│ File Explorer   │
 └─────────────────┘
 ```
 
-The important point is that **client and server describe roles**.
+### 2.2 Client Applications
 
-A computer can act as a client in one communication and as a server in another.
-
----
-
-## 🖥️ What is a Server?
-
-A server is a computer or software service that provides resources or services to clients.
-
-Servers can provide many different types of services.
+Applications can also act as clients.
 
 Examples include:
 
-* File storage
-* Websites
-* Databases
-* Authentication
-* DNS
-* DHCP
-* Email
-* Applications
-* APIs
-* Printing
-* Virtualization
-* Storage services
+| Client Application    | Server/Service Accessed |
+| --------------------- | ----------------------- |
+| Web Browser           | Web Server              |
+| Outlook               | Mail Server             |
+| File Explorer         | File Server             |
+| SQL Client            | Database Server         |
+| Remote Desktop Client | Remote Desktop Server   |
+| SSH Client            | SSH Server              |
+| API Client            | API Server              |
 
-A server can be:
+Therefore, the term **client** does not necessarily refer to an entire computer.
 
-* A physical server
-* A virtual machine
-* A cloud virtual machine
-* A container
-* A software application
+An application can independently act as a client.
 
-For example:
+---
+
+## 3. Server
+
+A **server** is a computer or software service that provides resources or services to clients.
+
+A server waits for requests, processes those requests, and returns appropriate responses.
 
 ```text
                     Server
@@ -147,32 +129,126 @@ For example:
     Clients         Clients         Clients
 ```
 
+### 3.1 Physical Server
+
+A physical server is a dedicated hardware system that provides computing resources and services.
+
+```text
+┌──────────────────────────────┐
+│       Physical Server        │
+│                              │
+│ CPU                          │
+│ Memory                       │
+│ Storage                      │
+│ Network Interfaces           │
+└──────────────────────────────┘
+```
+
+### 3.2 Virtual Server
+
+A virtual server is a virtual machine running on physical virtualization infrastructure.
+
+```text
+┌──────────────────────────────┐
+│       Physical Host          │
+│                              │
+│      Hypervisor              │
+│          │                   │
+│    ┌─────┼─────┐             │
+│    ↓     ↓     ↓             │
+│  VM01   VM02   VM03          │
+└──────────────────────────────┘
+```
+
+Virtualization allows multiple server workloads to run on the same physical hardware.
+
+### 3.3 Cloud Server
+
+A cloud server is a virtualized computing resource hosted within a cloud provider's infrastructure.
+
+```text
+Client
+  │
+  ↓
+Internet / Private Network
+  │
+  ↓
+Cloud Network
+  │
+  ↓
+Virtual Machine
+  │
+  ↓
+Application / Service
+```
+
 ---
 
-## 🔄 Client vs Server
+## 4. Client vs Server
 
-| Feature            | Client                     | Server                          |
-| ------------------ | -------------------------- | ------------------------------- |
-| Primary purpose    | Requests services          | Provides services               |
-| Example            | Web browser                | Web server                      |
-| Example            | File Explorer              | File server                     |
-| Example            | Outlook                    | Mail server                     |
-| Example            | Database application       | Database server                 |
-| Communication      | Sends requests             | Receives and processes requests |
-| Resources          | Usually consumes resources | Usually provides resources      |
-| Can be physical    | Yes                        | Yes                             |
-| Can be virtual     | Yes                        | Yes                             |
-| Can exist in cloud | Yes                        | Yes                             |
+The distinction between a client and a server is primarily based on the **role being performed**.
 
-The difference is mainly based on the **role being performed**.
+| Characteristic | Client             | Server                          |
+| -------------- | ------------------ | ------------------------------- |
+| Primary role   | Requests services  | Provides services               |
+| Communication  | Initiates requests | Receives and processes requests |
+| Resource usage | Consumes resources | Provides resources              |
+| Example        | Web Browser        | Web Server                      |
+| Example        | File Explorer      | File Server                     |
+| Example        | SQL Client         | SQL Server                      |
+| Physical       | Yes                | Yes                             |
+| Virtual        | Yes                | Yes                             |
+| Cloud-based    | Yes                | Yes                             |
+
+A system can act as both a client and a server.
+
+For example:
+
+```text
+Computer A
+    │
+    │ DNS Request
+    ↓
+Computer B
+    │
+    └── DNS Server
+```
+
+In this communication:
+
+```text
+Computer A = Client
+Computer B = Server
+```
+
+However, Computer B may request another service from another system:
+
+```text
+Computer B
+    │
+    │ Time Request
+    ↓
+Time Server
+```
+
+Now:
+
+```text
+Computer B = Client
+Time Server = Server
+```
+
+Therefore:
+
+> **Client and server describe roles in communication, not necessarily different physical machines.**
 
 ---
 
-# 🌐 How Client-Server Communication Works
+## 5. Client-Server Communication
 
 Clients and servers communicate through a network.
 
-A simplified communication process looks like this:
+The basic communication flow is:
 
 ```text
 Client
@@ -196,7 +272,7 @@ Network
 Client
 ```
 
-For communication to work correctly, several technologies may be involved.
+Successful communication may involve multiple network components.
 
 ```text
 Client
@@ -213,47 +289,142 @@ Client
        Server
 ```
 
-For example, when a user accesses a website:
+Each component performs a different function.
+
+### 5.1 IP Address
+
+An IP address identifies a device on an IP network.
+
+Example:
 
 ```text
-User
- │
- ↓
-Browser
- │
- │ DNS Query
- ↓
-DNS Server
- │
- │ IP Address
- ↓
-Browser
- │
- │ TCP Connection
- ↓
-Port 443
- │
- │ HTTPS
- ↓
-Web Server
+SERVER01
+192.168.10.10
 ```
 
-This demonstrates how multiple networking components work together to provide a service.
+A client can use the server's IP address to establish network communication.
 
----
+### 5.2 DNS
 
-# 📡 Request and Response
+DNS translates names into IP addresses.
 
-Most client-server communication follows a request and response model.
+For example:
 
-The client sends a request, the server processes the request, and the server returns a response.
+```text
+CLIENT01
+    │
+    │ "What is the IP of SERVER01?"
+    ↓
+DNS Server
+    │
+    │ 192.168.10.10
+    ↓
+CLIENT01
+```
 
-### Example: Web Application
+Instead of remembering:
+
+```text
+192.168.10.10
+```
+
+users and applications can use:
+
+```text
+SERVER01
+```
+
+### 5.3 Protocol
+
+A protocol defines how systems communicate.
+
+Examples include:
+
+* HTTP
+* HTTPS
+* DNS
+* SMB
+* LDAP
+* Kerberos
+* SSH
+* RDP
+
+### 5.4 Port
+
+A port identifies a particular service or application endpoint on a system.
+
+For example:
 
 ```text
 Client
+  │
+  │ TCP
+  │ Port 443
+  ↓
+Web Server
+```
+
+### 5.5 Firewall
+
+A firewall controls whether network traffic is allowed or blocked.
+
+```text
+Client
+  │
+  │ Network Traffic
+  ↓
+┌─────────────┐
+│  Firewall   │
+└──────┬──────┘
+       │
+       ↓
+    Server
+```
+
+A firewall may allow:
+
+```text
+TCP 443 → Allowed
+```
+
+while blocking:
+
+```text
+TCP 445 → Blocked
+```
+
+depending on the organization's security requirements.
+
+---
+
+## 6. Request and Response Model
+
+The request-response model is one of the most common patterns in client-server communication.
+
+The general process is:
+
+```text
+1. Client creates request
+          ↓
+2. Request travels through network
+          ↓
+3. Server receives request
+          ↓
+4. Server processes request
+          ↓
+5. Server creates response
+          ↓
+6. Response travels back
+          ↓
+7. Client receives response
+```
+
+### 6.1 Web Request
+
+```text
+Browser
    │
-   │ "Give me the website"
+   │ HTTPS Request
    ↓
 Web Server
    │
@@ -261,12 +432,12 @@ Web Server
    ↓
 Web Server
    │
-   │ "Here is the website"
+   │ HTTPS Response
    ↓
-Client
+Browser
 ```
 
-### Example: File Server
+### 6.2 File Request
 
 ```text
 CLIENT01
@@ -275,54 +446,36 @@ CLIENT01
    ↓
 FILE01
    │
-   ├── Check file
-   ├── Check user
+   ├── Locate file
+   ├── Authenticate user
    ├── Check permissions
+   └── Return file
    │
-   │ Response
    ↓
 CLIENT01
 ```
 
-### Example: DNS
+### 6.3 DNS Request
 
 ```text
 CLIENT01
    │
-   │ "What is the IP address of DC01?"
+   │ DNS Query
    ↓
 DNS Server
    │
-   │ "192.168.10.10"
+   │ DNS Response
    ↓
 CLIENT01
-```
-
-### Example: Authentication
-
-```text
-User
- │
- │ Credentials
- ↓
-Client
- │
- │ Authentication Request
- ↓
-Authentication Server
- │
- │ Authentication Result
- ↓
-Client
 ```
 
 ---
 
-# 🏢 Common Enterprise Servers
+## 7. Common Enterprise Server Types
 
-Enterprise environments usually contain different servers for different workloads.
+Enterprise environments commonly use specialized servers for different workloads.
 
-## Web Server
+### 7.1 Web Server
 
 A web server hosts websites and web applications.
 
@@ -345,9 +498,9 @@ Web Application
 
 ---
 
-## File Server
+### 7.2 File Server
 
-A file server provides centralized file storage to users and applications.
+A file server provides centralized file storage and sharing.
 
 ```text
 CLIENT01
@@ -362,33 +515,31 @@ FILE01
     └── Documents
 ```
 
-Windows environments commonly use **SMB** for network file sharing.
+Windows environments commonly use **SMB (Server Message Block)** for network file sharing.
 
 ---
 
-## DNS Server
+### 7.3 DNS Server
 
 A DNS server provides name resolution.
-
-It translates names into IP addresses.
 
 ```text
 CLIENT01
     │
-    │ "What is the IP of DC01?"
+    │ DNS Query
     ↓
 DNS Server
     │
-    │ 192.168.10.10
+    │ IP Address
     ↓
 CLIENT01
 ```
 
-DNS is particularly important in Windows and Active Directory environments.
+DNS is especially important for Windows enterprise environments and Active Directory.
 
 ---
 
-## DHCP Server
+### 7.4 DHCP Server
 
 A DHCP server automatically provides network configuration to clients.
 
@@ -414,16 +565,16 @@ CLIENT01
 
 ---
 
-## Authentication Server
+### 7.5 Authentication Server
 
-An authentication server validates user identities.
+An authentication service verifies the identity of a user or system.
 
-In a Windows enterprise environment, **Active Directory Domain Services** provides centralized identity and authentication capabilities.
+In a Windows enterprise environment, **Active Directory Domain Services (AD DS)** provides centralized identity and authentication capabilities.
 
 ```text
 User
  │
- │ Username + Password
+ │ Credentials
  ↓
 CLIENT01
  │
@@ -438,9 +589,9 @@ CLIENT01
 
 ---
 
-## Database Server
+### 7.6 Database Server
 
-A database server stores and manages application data.
+A database server stores and manages structured application data.
 
 Examples include:
 
@@ -463,7 +614,7 @@ Application Server
 
 ---
 
-## Application Server
+### 7.7 Application Server
 
 An application server hosts business applications and application services.
 
@@ -479,17 +630,17 @@ Database Server
 
 ---
 
-## Email Server
+### 7.8 Email Server
 
 An email server provides messaging services.
 
-Traditional enterprise environments may use:
+Traditional environments may use:
 
 ```text
-Microsoft Exchange Server
+Exchange Server
 ```
 
-Modern cloud environments may use:
+Cloud environments may use:
 
 ```text
 Exchange Online
@@ -497,11 +648,11 @@ Exchange Online
 
 ---
 
-# 🧩 Server Roles and Services
+## 8. Server Roles and Services
 
-A single server can provide multiple services.
+A server can provide one or multiple services.
 
-For example, a small organization might have:
+For example, a small environment may use a single server:
 
 ```text
 ┌──────────────────────────────┐
@@ -515,55 +666,51 @@ For example, a small organization might have:
 └──────────────────────────────┘
 ```
 
-This approach can be suitable for:
+This can be appropriate for:
 
 * Small organizations
 * Development environments
 * Test environments
-* Learning labs
+* Learning environments
 
-However, larger organizations commonly separate workloads.
+Larger organizations generally separate workloads.
 
 ```text
 ┌──────────────┐
 │     DC01     │
-│              │
 │ AD DS + DNS  │
 └──────────────┘
 
 ┌──────────────┐
 │    DHCP01    │
-│              │
-│    DHCP      │
+│     DHCP     │
 └──────────────┘
 
 ┌──────────────┐
 │    FILE01    │
-│              │
-│ File Services│
+│ File Server  │
 └──────────────┘
 
 ┌──────────────┐
-│    WEB01     │
-│              │
-│ Web Services │
+│     WEB01    │
+│ Web Server   │
 └──────────────┘
 ```
 
-Separating workloads can provide better:
+Workload separation can improve:
 
 * Security
 * Performance
 * Availability
 * Scalability
-* Management
+* Maintenance
 * Troubleshooting
 
 ---
 
-# 🏗️ Centralized Architecture
+## 9. Centralized Architecture
 
-In a centralized architecture, multiple services are hosted on a smaller number of servers.
+In a centralized architecture, multiple services are concentrated on a smaller number of systems.
 
 ```text
                 ┌──────────────┐
@@ -580,14 +727,14 @@ In a centralized architecture, multiple services are hosted on a smaller number 
         CLIENT01    CLIENT02    CLIENT03
 ```
 
-### Advantages
+### 9.1 Advantages
 
-* Simple to manage
+* Simple management
 * Lower infrastructure requirements
 * Easier initial deployment
-* Suitable for smaller environments
+* Suitable for small environments
 
-### Disadvantages
+### 9.2 Disadvantages
 
 * Single point of failure
 * Resource contention
@@ -596,9 +743,9 @@ In a centralized architecture, multiple services are hosted on a smaller number 
 
 ---
 
-# 🌐 Distributed Architecture
+## 10. Distributed Architecture
 
-In a distributed architecture, different workloads are distributed across multiple servers.
+In a distributed architecture, workloads are distributed across multiple servers.
 
 ```text
                     ┌────────────┐
@@ -618,118 +765,52 @@ In a distributed architecture, different workloads are distributed across multip
                        Clients
 ```
 
-Distributed architecture is commonly used in enterprise environments.
+Distributed architectures are commonly used in enterprise environments.
 
-### Advantages
+### 10.1 Advantages
 
-* Better workload separation
+* Workload separation
 * Improved scalability
 * Easier maintenance
-* Reduced impact of individual failures
-* Better security boundaries
 * Independent resource allocation
+* Better security boundaries
+* Reduced impact of individual failures
 
 ---
 
-# 🏢 Enterprise Client-Server Example
+## 11. Authentication and Authorization
 
-Consider an organization with several departments and hundreds of employees.
+Client-server environments commonly involve authentication and authorization.
 
-A simplified infrastructure might look like:
-
-```text
-                         Corporate Network
-                                │
-          ┌─────────────────────┼─────────────────────┐
-          │                     │                     │
-          ↓                     ↓                     ↓
-       DC01                  FILE01                 WEB01
-          │                     │                     │
-     AD DS + DNS            SMB Shares          Web Application
-          │                     │                     │
-          └─────────────────────┼─────────────────────┘
-                                │
-                  ┌─────────────┴─────────────┐
-                  ↓                           ↓
-              CLIENT01                    CLIENT02
-```
-
-Different services work together to provide the complete enterprise environment.
-
-### User Authentication
-
-```text
-Employee
-   │
-   ↓
-CLIENT01
-   │
-   │ Authentication Request
-   ↓
-DC01
-   │
-   │ Authentication Result
-   ↓
-CLIENT01
-```
-
-### File Access
-
-```text
-Employee
-   │
-   ↓
-CLIENT01
-   │
-   │ SMB
-   ↓
-FILE01
-   │
-   ↓
-Company Files
-```
-
-### Application Access
-
-```text
-Employee
-   │
-   ↓
-CLIENT01
-   │
-   │ HTTPS
-   ↓
-WEB01
-   │
-   ↓
-Business Application
-```
-
-This demonstrates how multiple servers can work together to deliver business services.
-
----
-
-# 🔐 Authentication and Authorization
-
-Client-server environments commonly involve two important security concepts.
-
-## Authentication
+### 11.1 Authentication
 
 Authentication answers:
 
 > **Who are you?**
 
-Examples:
+Examples include:
 
 * Username and password
-* Multi-factor authentication
 * Certificates
 * Biometrics
+* Multi-factor authentication
 * Security tokens
 
----
+Example:
 
-## Authorization
+```text
+User
+ │
+ │ Credentials
+ ↓
+Authentication Service
+ │
+ │ Identity Verified
+ ↓
+Client
+```
+
+### 11.2 Authorization
 
 Authorization answers:
 
@@ -744,7 +825,7 @@ User
  ↓
 Identity System
  │
- │ User identified
+ │ User Identified
  ↓
 Authorization
  │
@@ -753,13 +834,20 @@ Authorization
  └── Public Share → ✅
 ```
 
-Authentication and authorization become especially important when learning **Active Directory, Group Policy, Microsoft Entra ID, RBAC, and Zero Trust**.
+This distinction becomes important when learning:
+
+* Active Directory
+* Group Policy
+* Microsoft Entra ID
+* RBAC
+* Microsoft 365
+* Zero Trust
 
 ---
 
-# 🔌 Protocols and Ports
+## 12. Common Protocols and Ports
 
-Client-server communication commonly uses network protocols and ports.
+Client-server services use protocols and ports to communicate.
 
 | Service  | Protocol | Common Port |
 | -------- | -------- | ----------: |
@@ -774,8 +862,6 @@ Client-server communication commonly uses network protocols and ports.
 | LDAPS    | TCP      |         636 |
 | Kerberos | TCP/UDP  |          88 |
 
-These ports help systems identify which service should receive network traffic.
-
 For example:
 
 ```text
@@ -787,15 +873,55 @@ Client
 Web Server
 ```
 
-The server listens for connections on the appropriate port.
+The port allows the operating system and networking stack to identify the intended service.
 
 ---
 
-# 🏠 Client-Server Architecture in On-Premises Environments
+## 13. Centralized Services in Enterprise Environments
 
-In traditional on-premises infrastructure, the organization owns or manages the physical infrastructure.
+One of the major benefits of client-server architecture is centralized service management.
 
-A simplified environment might look like:
+Instead of every client independently maintaining its own resources, services can be centralized.
+
+For example:
+
+```text
+                Enterprise Network
+                       │
+        ┌──────────────┼──────────────┐
+        ↓              ↓              ↓
+      CLIENT01      CLIENT02      CLIENT03
+        │              │              │
+        └──────────────┼──────────────┘
+                       │
+                       ↓
+                    Servers
+                       │
+        ┌──────────────┼──────────────┐
+        ↓              ↓              ↓
+       DNS            Files       Authentication
+```
+
+Centralization allows organizations to manage:
+
+* User identities
+* File access
+* Network configuration
+* Applications
+* Security policies
+* Authentication
+* Logging
+* Backup
+
+from centralized infrastructure.
+
+---
+
+## 14. Client-Server Architecture in On-Premises Infrastructure
+
+In a traditional on-premises environment, the organization operates its own infrastructure.
+
+A simplified architecture may look like:
 
 ```text
                     Data Center
@@ -811,38 +937,40 @@ A simplified environment might look like:
                       Clients
 ```
 
-The organization is responsible for:
+The organization may be responsible for:
 
-* Servers
+* Physical servers
+* Virtual machines
 * Storage
-* Networking
+* Network infrastructure
 * Operating systems
 * Applications
 * Security
 * Backup
+* Monitoring
 * Maintenance
 
 ---
 
-# ☁️ Client-Server Architecture in Cloud Computing
+## 15. Client-Server Architecture in Cloud Computing
 
 The client-server model also exists in cloud computing.
 
-The main difference is **where the infrastructure is hosted and who manages it**.
+The major difference is where the infrastructure is hosted and who manages the underlying infrastructure.
 
 ```text
 Client
    │
    ↓
-Internet
+Internet / Private Network
    │
    ↓
-Cloud Service
+Cloud Infrastructure
    │
    ├── Compute
    ├── Storage
    ├── Networking
-   └── Application
+   └── Applications
 ```
 
 For example:
@@ -860,11 +988,11 @@ Cloud Application
 Cloud Database
 ```
 
-The underlying servers may be located in a cloud provider's data center rather than inside the organization's own data center.
+The physical infrastructure may be operated by the cloud provider.
 
 ---
 
-# 🔄 Client-Server Architecture in Hybrid Environments
+## 16. Client-Server Architecture in Hybrid Environments
 
 Hybrid environments combine on-premises infrastructure with cloud services.
 
@@ -876,13 +1004,13 @@ Hybrid environments combine on-premises infrastructure with cloud services.
         │ DNS                     │
         │ Windows Servers         │
         │ File Servers            │
+        │ Applications            │
         │                         │
         └────────────┬────────────┘
                      │
-                     │ Hybrid Identity
-                     │
+                     │ Hybrid Connectivity
                      ↓
-                 CLOUD
+                 CLOUD SERVICES
         ┌─────────────────────────┐
         │                         │
         │ Microsoft 365           │
@@ -893,124 +1021,265 @@ Hybrid environments combine on-premises infrastructure with cloud services.
         └─────────────────────────┘
 ```
 
-This hybrid model is particularly important for organizations that are modernizing existing on-premises infrastructure while adopting cloud services.
+This architecture allows organizations to continue using existing on-premises systems while gradually adopting cloud services.
 
-The concepts learned here will later connect with:
-
-* Active Directory
-* Hybrid Identity
-* Microsoft 365
-* Microsoft Intune
-* Microsoft Defender
-* Microsoft Purview
-* Zero Trust
-
----
-
-# 🧠 Important Concept: Client and Server Are Roles
-
-One of the most important concepts to remember is that **client and server are roles, not necessarily different types of computers**.
-
-For example:
-
-```text
-Computer A
-    │
-    │ Requests DNS
-    ↓
-Computer B
-    │
-    └── DNS Server
-```
-
-Computer B is acting as a server for DNS.
-
-But Computer B could also request information from another server:
-
-```text
-Computer B
-    │
-    │ Requests Time
-    ↓
-Time Server
-```
-
-In this communication:
-
-```text
-Computer B = Client
-Time Server = Server
-```
-
-Therefore, the same system can act as both a client and a server depending on the service being used.
-
----
-
-# 🏢 Enterprise Infrastructure Relationship
-
-The concepts introduced in this section form the foundation for the rest of the repository.
-
-```text
-                 Enterprise Infrastructure
-                          │
-        ┌─────────────────┼─────────────────┐
-        ↓                 ↓                 ↓
-     Clients           Servers           Network
-        │                 │                 │
-        │                 ├── DNS          │
-        │                 ├── DHCP         │
-        │                 ├── AD DS        │
-        │                 ├── File Server  │
-        │                 ├── Web Server   │
-        │                 └── Applications │
-        │                                   │
-        └───────────────────────────────────┘
-```
-
-Later, this architecture will evolve into:
+The overall evolution may look like:
 
 ```text
 On-Premises Infrastructure
           ↓
 Windows Server
           ↓
-DNS / DHCP
-          ↓
 Active Directory
           ↓
-Group Policy
-          ↓
-File Services
-          ↓
-PowerShell Automation
+Enterprise Services
           ↓
 Hybrid Identity
           ↓
 Microsoft 365
           ↓
-Intune
+Modern Endpoint Management
           ↓
-Defender
-          ↓
-Purview
-          ↓
-Zero Trust
+Cloud Security
 ```
 
 ---
 
-# 🔑 Key Takeaways
+## 17. Three-Tier Application Architecture
 
-* Client-server architecture is a fundamental enterprise IT concept.
-* A **client requests** a service or resource.
-* A **server provides** a service or resource.
-* Client and server are roles rather than necessarily different types of computers.
+Many enterprise applications use multiple layers rather than allowing clients to communicate directly with databases.
+
+A common model is the **three-tier architecture**.
+
+```text
+┌─────────────────────────┐
+│   Presentation Layer    │
+│                         │
+│ Browser / Client        │
+└────────────┬────────────┘
+             │
+             ↓
+┌─────────────────────────┐
+│   Application Layer     │
+│                         │
+│ Business Logic / API    │
+└────────────┬────────────┘
+             │
+             ↓
+┌─────────────────────────┐
+│       Data Layer        │
+│                         │
+│ Database                │
+└─────────────────────────┘
+```
+
+### 17.1 Presentation Layer
+
+The presentation layer interacts with the user.
+
+Examples:
+
+* Web browser
+* Desktop application
+* Mobile application
+
+### 17.2 Application Layer
+
+The application layer processes business logic.
+
+Examples:
+
+* Web application
+* API
+* Application server
+
+### 17.3 Data Layer
+
+The data layer stores and retrieves application data.
+
+Examples:
+
+* SQL Server
+* PostgreSQL
+* MySQL
+
+Separating these layers can improve:
+
+* Security
+* Scalability
+* Maintainability
+* Performance
+* Application management
+
+---
+
+## 18. Enterprise Example
+
+Consider an organization with several departments and hundreds of employees.
+
+A simplified infrastructure might look like:
+
+```text
+                         Corporate Network
+                                │
+          ┌─────────────────────┼─────────────────────┐
+          │                     │                     │
+          ↓                     ↓                     ↓
+       DC01                  FILE01                 WEB01
+          │                     │                     │
+     AD DS + DNS            SMB Shares          Application
+          │                     │                     │
+          └─────────────────────┼─────────────────────┘
+                                │
+                  ┌─────────────┴─────────────┐
+                  ↓                           ↓
+              CLIENT01                    CLIENT02
+```
+
+### 18.1 User Authentication
+
+```text
+Employee
+   │
+   ↓
+CLIENT01
+   │
+   │ Authentication Request
+   ↓
+DC01
+   │
+   │ Authentication Result
+   ↓
+CLIENT01
+```
+
+### 18.2 File Access
+
+```text
+Employee
+   │
+   ↓
+CLIENT01
+   │
+   │ SMB
+   ↓
+FILE01
+   │
+   ↓
+Company Files
+```
+
+### 18.3 Application Access
+
+```text
+Employee
+   │
+   ↓
+CLIENT01
+   │
+   │ HTTPS
+   ↓
+WEB01
+   │
+   ↓
+Business Application
+```
+
+Multiple services work together to provide the complete enterprise environment.
+
+---
+
+## 19. Key Enterprise Concepts
+
+The client-server model introduces several concepts that will appear throughout this learning path.
+
+| Concept           | Purpose                                   |
+| ----------------- | ----------------------------------------- |
+| Client            | Requests a service                        |
+| Server            | Provides a service                        |
+| IP Address        | Identifies a system                       |
+| DNS               | Resolves names                            |
+| DHCP              | Provides network configuration            |
+| Protocol          | Defines communication rules               |
+| Port              | Identifies a service endpoint             |
+| Firewall          | Controls network traffic                  |
+| Authentication    | Verifies identity                         |
+| Authorization     | Controls resource access                  |
+| Application       | Provides business functionality           |
+| Database          | Stores application data                   |
+| File Server       | Provides centralized file storage         |
+| Directory Service | Provides centralized identity information |
+
+---
+
+## 20. Importance in Microsoft Enterprise Environments
+
+Client-server architecture provides the foundation for many Microsoft technologies.
+
+A traditional Microsoft enterprise environment may contain:
+
+```text
+                    Enterprise
+                         │
+        ┌────────────────┼────────────────┐
+        ↓                ↓                ↓
+    Windows Server    Active Directory   Network
+        │                │                │
+        ├── DNS          ├── Users        ├── TCP/IP
+        ├── DHCP         ├── Groups       ├── Routing
+        ├── Files        ├── Computers    ├── Firewall
+        └── Apps         └── Policies     └── Connectivity
+```
+
+These technologies later connect to cloud services:
+
+```text
+On-Premises
+     │
+     ├── Windows Server
+     ├── Active Directory
+     ├── DNS
+     ├── DHCP
+     ├── File Services
+     └── Group Policy
+            │
+            ↓
+       Hybrid Identity
+            │
+            ↓
+       Microsoft Cloud
+            │
+     ┌──────┼──────┐
+     ↓      ↓      ↓
+ Microsoft Intune
+ 365      Defender
+          Purview
+```
+
+Understanding the basic client-server relationship makes it easier to understand why these services exist and how they interact.
+
+---
+
+## 21. Summary
+
+Client-server architecture describes how systems communicate to provide and consume services.
+
+The key concepts introduced in this section are:
+
+* **Clients request services or resources.**
+* **Servers provide services or resources.**
+* Client and server are **roles**, not necessarily different physical computers.
 * Clients and servers communicate through networks.
-* Communication can involve IP addresses, DNS, routing, TCP/UDP, ports, firewalls, and application protocols.
-* Common enterprise servers include DNS, DHCP, file, web, database, application, email, and authentication servers.
+* Communication can involve **IP addresses, DNS, routing, TCP/UDP, ports, firewalls, and application protocols**.
+* Enterprise environments use different server types for different workloads.
+* Common server roles include **DNS, DHCP, file, web, database, application, email, and authentication services**.
 * Small environments may use centralized services.
-* Enterprise environments commonly use distributed architectures.
-* Authentication determines who a user is.
-* Authorization determines what the user can access.
-* Client-server architecture is used in on-premises, cloud, and hybrid environments.
-* Understanding client-server architecture provides the foundation for learning enterprise Windows and hybrid cloud infrastructure.
+* Enterprise environments commonly distribute workloads across multiple servers.
+* **Authentication** determines who a user or system is.
+* **Authorization** determines what a user or system is allowed to access.
+* Client-server architecture exists in **on-premises, cloud, and hybrid environments**.
+* Multi-tier architectures separate application responsibilities into different layers.
+* Client-server architecture provides the foundation for understanding enterprise Microsoft infrastructure.
+
+---
+
