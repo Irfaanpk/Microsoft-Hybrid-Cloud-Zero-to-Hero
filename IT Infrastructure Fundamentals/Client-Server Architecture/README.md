@@ -1,4 +1,4 @@
-Client-Server Architecture
+## Client-Server Architecture
 
 Client-server architecture is one of the fundamental concepts of enterprise IT infrastructure. It explains how computers, applications, and services communicate with each other to provide resources and business functionality.
 
@@ -6,7 +6,7 @@ Understanding the client-server model is essential before moving into Windows Se
 
 ---
 
-## 📖 What is Client-Server Architecture?
+## What is Client-Server Architecture?
 
 Client-server architecture is a computing model where one system requests a service or resource, while another system provides that service or resource.
 
